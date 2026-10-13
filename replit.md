@@ -1,44 +1,54 @@
-# [Project name]
+# Campus Shuttle Optimizer
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+A Streamlit DAA simulator for campus shuttle networks, passenger allocation, vehicle routing, greedy scheduling, and reproducible traffic-disruption experiments.
 
 ## Run & Operate
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
+- `cd campus-shuttle-optimizer && streamlit run app.py` — run the dashboard locally (Windows setup: see its README)
+- `cd campus-shuttle-optimizer && python -m pytest` — run the algorithm and data-validation tests
+- `Campus Shuttle Optimizer` workflow — run the Streamlit preview on port 5000
+- `pnpm --filter @workspace/api-server run dev` — run the workspace API server (port 8080)
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
 - `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
+- The shuttle simulator has no required environment variables or database.
 
 ## Stack
 
-- pnpm workspaces, Node.js 24, TypeScript 5.9
-- API: Express 5
-- DB: PostgreSQL + Drizzle ORM
-- Validation: Zod (`zod/v4`), `drizzle-zod`
-- API codegen: Orval (from OpenAPI spec)
-- Build: esbuild (CJS bundle)
+- Python 3.10+, Streamlit, NetworkX, Pandas, NumPy, Plotly, Matplotlib, pytest
+- The wider workspace also contains a pnpm monorepo and shared Express API scaffold.
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `campus-shuttle-optimizer/algorithms/` — manual DAA algorithm implementations
+- `campus-shuttle-optimizer/services/` — generated data, CSV validation, simulation, benchmarks, recommendations
+- `campus-shuttle-optimizer/dashboard/` — Streamlit pages and visualizations
+- `campus-shuttle-optimizer/tests/` — pytest coverage
+- `campus-shuttle-optimizer/docs/` — complexity, system design, and review demo script
+- `campus-shuttle-optimizer/README.md` — Windows setup, usage, and CSV fields
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- Sample records use a fixed seed and Streamlit session state; reset restores the sample scenario.
+- NetworkX supports graph representation and connectivity inspection; required DAA algorithms remain manually implemented.
+- Traffic disruption runs on copied road records and reports simulated outcomes only.
+- The Clarke–Wright output is a feasible heuristic, not a globally optimal result.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+The dashboard supports editable campus maps, graph analysis, passenger capacity allocation, greedy scheduling, fleet routes, seeded disruption comparison, measured experiments, and metric-derived recommendations.
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+The requested dashboard stack is Python and Streamlit, with readable manual DAA algorithm implementations and Windows setup instructions.
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- MST pages require every road to be undirected; Dijkstra requires non-negative travel times.
+- Greedy activity selection and job sequencing are separate simplified models, not full-fleet scheduling.
+- Route seat checks conservatively sum the passenger groups on each route.
+- Runtime charts show measurements for the current environment and inputs, not fixed benchmark claims.
 
 ## Pointers
 

@@ -1,0 +1,15 @@
+stop_id,name,x,y,is_depot
+S01,North Gate,0,4,True
+S02,Library,2,5,False
+S03,Engineering Block,4,5,False
+S04,Student Center,4,3,False
+S05,Science Complex,6,5,False
+S06,Sports Arena,7,2,False
+S07,East Depot,9,4,True
+S08,Residence Hall A,2,1,False
+S09,Residence Hall B,4,0,False
+S10,Health Center,6,0,False
+S11,West Gate,0,0,False
+S12,South Depot,9,0,True
+S13,Auditorium,8,6,False
+S14,Innovation Hub,6,3,False
