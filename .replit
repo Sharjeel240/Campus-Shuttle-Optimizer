@@ -8,6 +8,16 @@ deploymentTarget = "autoscale"
 args = ["pnpm", "store", "prune"]
 env = { "CI" = "true" }
 
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[[ports]]
+localPort = 8080
+
+[[ports]]
+localPort = 8081
+
 [workflows]
 runButton = "Project"
 
@@ -24,13 +34,13 @@ args = "Campus Shuttle Optimizer"
 name = "Campus Shuttle Optimizer"
 author = "agent"
 
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "cd campus-shuttle-optimizer && streamlit run app.py --server.port 5000 --server.address 0.0.0.0 --server.headless true"
-waitForPort = 5000
-
 [workflows.workflow.metadata]
 outputType = "webview"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd campus-shuttle-optimizer && streamlit run app.py --server.address 0.0.0.0 --server.port 5000 --server.headless true --server.enableCORS false --server.enableWebsocketCompression false"
+waitForPort = 5000
 
 [agent]
 stack = "PNPM_WORKSPACE"

@@ -1,0 +1,71 @@
+## URGENT: Fix Replit App Startup and Make the Application Live
+
+Act as a senior Python developer and Replit deployment/debugging expert.
+
+My Campus Shuttle Optimizer app is showing this error:
+
+"Hmm... We couldn't reach this app. Make sure this app has a port open and is ready to receive HTTP traffic."
+
+**Your task is to diagnose and fix the existing project, start the application successfully, and make the app accessible through Replit's web preview. Do not rebuild the project from scratch or merely explain possible fixes. Inspect the existing files, identify the actual cause, and implement the necessary corrections.**
+
+### 1. Diagnose the root cause
+- Inspect the project files, entry point, dependencies, and run configuration.
+- Check the existing console and execution logs for Python exceptions, missing modules, syntax errors, and failed imports.
+- Determine whether the configured command is launching the correct application.
+- Check whether the app exits immediately, crashes during startup, or starts on the wrong port or host.
+- Check for dependency conflicts and missing packages.
+
+### 2. Fix the server configuration
+If this is a Streamlit application:
+- Ensure the correct entry point is used, normally `app.py`.
+- Start Streamlit with the following configuration, adapting it to Replit's available port configuration:
+
+`streamlit run app.py --server.address 0.0.0.0 --server.port $PORT --server.headless true`
+
+- Ensure the configured port matches the port Replit expects for the web application.
+- If the `PORT` environment variable is unavailable in the actual runtime, inspect Replit's current configuration and use its supported port setup. Do not assume that an arbitrary port is correct.
+- Ensure the server listens on `0.0.0.0`, not only `127.0.0.1` or `localhost`.
+- Configure the correct Run command and Replit workflow or deployment settings, as appropriate.
+- Avoid launching duplicate Streamlit servers or starting the application in a background process that immediately terminates.
+
+### 3. Verify dependencies and files
+- Inspect `requirements.txt` and ensure all imports used by the application have the required dependencies.
+- Install missing dependencies in the Replit environment.
+- Correct incorrect import paths, missing modules, and file path assumptions.
+- Ensure sample CSV datasets and other required files exist and load correctly.
+- Use paths relative to the project directory where appropriate.
+- Do not delete working functionality to bypass errors.
+
+### 4. Check application startup
+- Run the application using the corrected configuration.
+- Inspect the actual logs after startup.
+- Fix all startup exceptions and missing dependency errors.
+- Confirm that the application process remains running and that the web server responds over HTTP.
+- Check the health of the app using the available Replit preview or supported local HTTP test.
+- If the application has multiple pages, ensure the home page can load without triggering errors from other pages.
+
+### 5. Preserve the project
+Keep the existing Campus Shuttle Optimizer features, including:
+- Prim's and Kruskal's MST algorithms.
+- Dijkstra and Bellman–Ford.
+- Floyd–Warshall.
+- 0/1 Knapsack.
+- Greedy scheduling.
+- Multi-vehicle routing.
+- Delay simulation.
+- Interactive visualizations and benchmarking.
+
+Fix only what is necessary for startup and runtime stability. If a feature has a separate error, document and fix it without replacing the real algorithm with a placeholder.
+
+### 6. Final verification
+Before reporting success:
+1. Start the app with the corrected Run configuration.
+2. Confirm that the server starts without errors.
+3. Confirm that it listens on the expected port and external interface.
+4. Verify that the Replit preview actually opens.
+5. Test the home page and at least one working algorithm workflow.
+6. Report the root cause, files changed, exact Run command, and any remaining errors.
+
+**Important:** Do not just modify configuration files and claim success. Execute the application, inspect the real logs, and verify the result. If the problem is caused by Replit deployment or port configuration rather than Python code, correct the relevant Replit configuration as well.
+
+Start debugging now.
